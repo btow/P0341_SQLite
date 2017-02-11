@@ -12,8 +12,8 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText etName, etEmail;
-    Button btnAdd, btnRead, btnClear;
+    EditText etName, etEmail, etId;
+    Button btnAdd, btnRead, btnClear, btnUpd, btnDel;
 
     DBHelper dbHelper;
 
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         etName = (EditText) findViewById(R.id.etName);
         etEmail = (EditText) findViewById(R.id.etEmail);
+        etId = (EditText) findViewById(R.id.etId);
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
@@ -31,6 +32,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnRead.setOnClickListener(this);
         btnClear = (Button) findViewById(R.id.btnClear);
         btnClear.setOnClickListener(this);
+        btnUpd = (Button) findViewById(R.id.btnUpd);
+        btnUpd.setOnClickListener(this);
+        btnDel = (Button) findViewById(R.id.btnDel);
+        btnDel.setOnClickListener(this);
 
         dbHelper = new DBHelper(this);
     }
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+        String id = etId.getText().toString();
         String name = etName.getText().toString();
         String email = etEmail.getText().toString();
 
@@ -71,6 +77,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnClear :
                 database.delete(DBHelper.TABLE_CONTACTS, null, null);
+                break;
+            case R.id.btnUpd :
+
+                if (id.equalsIgnoreCase("")) break;
+
+                contentValues.put(DBHelper.KEY_MAIL, email);
+                contentValues.put(DBHelper.KEY_NAME, name);
+                String[] args = {id};
+
+                int updCount = database.update(DBHelper.TABLE_CONTACTS, contentValues, DBHelper.KEY_ID + "= ?", args);
+
+                Log.d("mLog", "updates rows count = " + updCount);
+
+                break;
+            case R.id.btnDel :
+
+                if (id.equalsIgnoreCase("")) break;
+
+                int delCount = database.delete(DBHelper.TABLE_CONTACTS, DBHelper.KEY_ID + "=" + id, null);
+
+                Log.d("mLog", "deleted rows count = " + delCount);
                 break;
             default:
                 break;

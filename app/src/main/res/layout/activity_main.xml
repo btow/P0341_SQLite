@@ -12,6 +12,11 @@
     tools:context="com.example.samsung.p0341_sqlite.MainActivity">
 
     <EditText
+        android:id="@+id/etId"
+        android:hint="Id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
         android:id="@+id/etName"
         android:hint="Name"
         android:layout_width="match_parent"
@@ -21,6 +26,21 @@
         android:hint="Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnUpd"
+            android:text="Update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnDel"
+            android:text="Delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
